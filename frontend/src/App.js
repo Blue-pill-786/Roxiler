@@ -88,6 +88,14 @@ const App = () => {
           style={styles.searchInput}
         />
       </div>
+      <div style={styles.chartContainer}>
+        <BarChart data={barChartData} />
+      </div>
+
+      <div style={styles.statisticsContainer}>
+        <TransactionStatistics statistics={statistics} />
+      
+      </div>
       <div style={styles.tableContainer}>
         <TransactionsTable
           transactions={transactions}
@@ -98,15 +106,9 @@ const App = () => {
         />
       </div>
 
-      <div style={styles.statisticsContainer}>
-        <TransactionStatistics statistics={statistics} />
-      </div>
-
       
 
-      <div style={styles.chartContainer}>
-        <BarChart data={barChartData} />
-      </div>
+     
     </div>
   );
 };
@@ -131,27 +133,39 @@ const styles = {
     marginBottom: '20px',
   },
   label: {
-    fontSize: '16px',
+    fontSize: '26px',
+    marginLeft: '15rem',
   },
   select: {
     marginLeft: '10px',
     padding: '5px',
-    fontSize: '16px',
+    fontSize: '26px',
+    border:'3px solid black',
+    borderRadius: '20px'
   },
   searchInput: {
     padding: '8px',
     fontSize: '16px',
-    borderRadius: '4px',
+    
     border: '1px solid #ddd',
+    borderRadius: '20px'
   },
   statisticsContainer: {
     marginBottom: '20px',
+    border:'3px solid blue',
+    borderRadius: '20px',
+    boxShadow: '1px 4px 18px rgba(3, 2, 1, 0.8)',
   },
   tableContainer: {
     marginBottom: '20px',
+    backgroundColor:'#ccc',
+    border:'3px solid blue',
+    borderRadius: '20px',
+    boxShadow: '1px 4px 18px rgba(3, 2, 1, 0.8)',
   },
   chartContainer: {
     marginTop: '20px',
+   
   },
 };
 
