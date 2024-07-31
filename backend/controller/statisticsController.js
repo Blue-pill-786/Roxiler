@@ -8,7 +8,6 @@ const statistics = async (req, res) => {
     const monthNumber = new Date(Date.parse(`${month} 1, 2022`)).getMonth();
     const years =year || 2022
     const start = startOfMonth(new Date(years, monthNumber, 1));
-    const date = startOfMonth(new Date(new Date().getFullYear(), monthNumber ))
     const end = endOfMonth(start);
     
   

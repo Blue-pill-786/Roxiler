@@ -58,6 +58,11 @@ const App = () => {
     fetchData();
   }, [month, search, currentPage]);
 
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+    setCurrentPage(1); // Reset to the first page when searching
+  };
+
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>Transaction Dashboard</h1>
@@ -79,7 +84,7 @@ const App = () => {
           type="text"
           placeholder="Search transactions..."
           value={search}
-          onChange={e => setSearch(e.target.value)}
+          onChange={handleSearch}
           style={styles.searchInput}
         />
       </div>
