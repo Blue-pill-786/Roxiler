@@ -12,11 +12,11 @@ table {
 }
 
 table, th, td {
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
 }
 
 th, td {
-  padding: 8px;
+  padding: 18px;
   text-align: left;
 }
 

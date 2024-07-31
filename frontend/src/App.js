@@ -151,20 +151,22 @@ const styles = {
     borderRadius: '20px'
   },
   statisticsContainer: {
-    marginBottom: '20px',
+    margin: '40px',
     border:'3px solid blue',
     borderRadius: '20px',
     boxShadow: '1px 4px 18px rgba(3, 2, 1, 0.8)',
+    paddingLeft:'40%',
+    backgroundColor:'#eee'
   },
   tableContainer: {
-    marginBottom: '20px',
-    backgroundColor:'#ccc',
+    margin: '40px',
+    backgroundColor:'#eee',
     border:'3px solid blue',
     borderRadius: '20px',
     boxShadow: '1px 4px 18px rgba(3, 2, 1, 0.8)',
   },
   chartContainer: {
-    marginTop: '20px',
+    margin: '40px',
    
   },
 };
