@@ -2,21 +2,19 @@ const { startOfMonth, endOfMonth } = require('date-fns');  // Ensure date-fns is
 const Transaction = require('../models/Transaction');  // Adjust the path as necessary
 
 const barChart = async (req, res) => {
-  const { month, year } = req.query;
+  const { month, years } = req.query;
   
   // Validate month input
   if (!month) {
     return res.status(400).json({ message: 'Month query parameter is required' });
   }
 
-   // Validate and default year
-   const validYear = parseInt(year, 10);
-   const years = isNaN(validYear) ? 2022 : validYear;
-
   // Convert month name to number (0-11)
   const monthNumber = new Date(Date.parse(`${month} 1, 2022`)).getMonth();
-  const start = startOfMonth(new Date(years, monthNumber, 1));
-  const end = endOfMonth(start);
+  
+  // Default years to 2022 and handle multiple years
+  const yearArray = [2021,2022,2023]
+ 
 
   try {
     const ranges = {
@@ -34,12 +32,32 @@ const barChart = async (req, res) => {
 
     const data = {};
 
-    for (const [range, [min, max]] of Object.entries(ranges)) {
-      const count = await Transaction.countDocuments({
-        dateOfSale: { $gte: start, $lte: end },
-        price: { $gte: min, $lte: max }
-      });
-      data[range] = count;
+    // Iterate over each year and count documents for each price range
+    for (const year of yearArray) {
+      const start1 = startOfMonth(new Date(year, monthNumber, 1));
+      const end1 = endOfMonth(start);
+
+      const start2 = startOfMonth(new Date(year, monthNumber, 1));
+      const end2 = endOfMonth(start);
+
+      for (const [range, [min, max]] of Object.entries(ranges)) {
+        const count = await Transaction.countDocuments({
+          dateOfSale: { $gte: start, $lte: end },
+          $match: {
+            $or: [
+                { dateOfSale: { $gte: start1, $lte: end1 } },
+                { dateOfSale: { $gte: start2, $lte: end2 } }
+            ]
+        }
+          price: { $gte: min, $lte: max }
+        });
+
+        // Accumulate counts across years
+        if (!data[range]) {
+          data[range] = 0;
+        }
+        data[range] += count;
+      }
     }
 
     res.json(data);
@@ -49,4 +67,4 @@ const barChart = async (req, res) => {
   }
 };
 
-module.exports = barChart; 
+module.exports = barChart;
